@@ -60,7 +60,9 @@ const Popup = ({ show, click, coordinates, planet, clickVisitPlanet }) => {
       >
         <div className='popupContentContainer'>
           <div>Planet name : </div>
-          <div className='title'>{planet ? planet.name : null}</div>
+          <div className='title'>
+            <h1 className='nomPlanete'>{planet ? planet.name : null}</h1>
+          </div>
           <div className='description'>
             {planet ? planet.description : null}
           </div>
