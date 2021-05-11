@@ -41,7 +41,11 @@ class Parallax extends React.Component {
               },
             }}
           >
-            <img src={fondEtoile} alt='Parallax Layer'></img>
+            <img
+              src={fondEtoile}
+              style={{ width: '120%', transform: 'translateX(-10%)' }}
+              alt='Parallax Layer'
+            ></img>
           </ParallaxMousemove.Layer>
           <div style={style.infoLayerStyle}>
             <ParallaxMousemove.Layer
