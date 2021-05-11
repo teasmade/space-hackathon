@@ -13,10 +13,11 @@ import { ReactComponent as Planet6 } from '../../icons/planet6.svg';
 import { ReactComponent as Planet7 } from '../../icons/planet7.svg';
 import { ReactComponent as Planet8 } from '../../icons/planet8.svg';
 import { ReactComponent as Planet9 } from '../../icons/planet9.svg';
-import { ReactComponent as SpaceShip } from '../../icons/noun_Space_3713441.svg';
+import { ReactComponent as SpaceShip } from '../../icons/noun_Space_3713444.svg';
 import { useEffect, useState } from 'react';
+import WinOrLoose from './Popup/WinOrLoose';
 
-const PlanetsGrid = ({ dataReady, setData }) => {
+const PlanetsGrid = () => {
   let listPlanetWithContent = planetList;
   const emptyGrid = new Array(400).fill({ isPlanet: false });
   const [filledGrid, setFilledGrid] = useState([]);
@@ -24,9 +25,13 @@ const PlanetsGrid = ({ dataReady, setData }) => {
   const [isPopupShown, setIsPopupShown] = useState(false);
   const [mouseCoordinates, setMouseCoordinates] = useState([null, null]);
   const [planetVisiting, setPlanetVisiting] = useState(null);
+  const [distance, setDistance] = useState(0);
 
-  const [posX, setPosX] = useState(20);
-  const [posY, setPosY] = useState(20);
+  const [shipPositionX, setShipPositionX] = useState(20);
+  const [shipPositionY, setShipPositionY] = useState(20);
+  const [destinationPositionX, setDestinationPositionX] = useState(0);
+  const [destinationPositionY, setDestinationPositionY] = useState(0);
+  const [fuel, setFuel] = useState(3000);
 
   const iconsArray = [
     Planet0,
@@ -89,7 +94,12 @@ const PlanetsGrid = ({ dataReady, setData }) => {
           planetType={item && item.isPlanet ? item.type : null}
           id={item.id}
           isPlanet={item && item.isPlanet}
-          click={(event) => showPopup(event, item)}
+          click={(event) => {
+            showPopup(event, item);
+            setDestinationPositionX(event.clientX - 20);
+            setDestinationPositionY(event.clientY - 20);
+            handleCalculateDistance(event);
+          }}
         >
           {item.icon}
         </PlanetItem>
@@ -112,17 +122,29 @@ const PlanetsGrid = ({ dataReady, setData }) => {
     setIsPopupShown(false);
   };
 
-  const handleSpaceShipMove = (e) => {
-    console.log(window.innerWidth, e.clientY);
-    setPosX(e.clientX - 20);
-    setPosY(e.clientY - 20);
+  const handleCalculateDistance = (e) => {
+    console.log(shipPositionX, e.clientX);
+    const diffX = shipPositionX - e.clientX;
+    const diffY = shipPositionY - e.clientY;
+    setDistance(
+      Math.round(
+        Math.sqrt(
+          parseInt(Math.abs(diffX)) ** 2 + parseInt(Math.abs(diffY)) ** 2
+        )
+      )
+    );
   };
 
-  const handleCalculateDistance = (e) => {
-    const diffX = posX - e.clientX;
-    const diffY = posY - e.clientY;
-    return Math.round(
-      Math.sqrt(parseInt(Math.abs(diffX)) ** 2 + parseInt(Math.abs(diffY)) ** 2)
+  const handleSpaceShipMove = () => {
+    console.log(
+      JSON.parse(JSON.stringify(shipPositionX)),
+      destinationPositionX
+    );
+    setShipPositionX(destinationPositionX);
+    setShipPositionY(destinationPositionY);
+    console.log(
+      JSON.parse(JSON.stringify(shipPositionX)),
+      destinationPositionX
     );
   };
 
@@ -135,15 +157,27 @@ const PlanetsGrid = ({ dataReady, setData }) => {
     <div className='gridContainer'>
       <SpaceShip
         className='spaceship'
-        style={{ top: posY, left: posX, transition: 'all 1000ms ease-in-out' }}
+        style={{
+          top: shipPositionY,
+          left: shipPositionX,
+          zIndex: 20,
+          transition: 'all 1000ms ease-in-out',
+        }}
+      />
       <Popup
         show={isPopupShown}
         click={() => setIsPopupShown(false)}
         coordinates={mouseCoordinates}
         planet={planetVisiting}
         clickVisitPlanet={visitPlanet}
+        distance={distance}
+        spaceShipMove={handleSpaceShipMove}
+        fuel={fuel}
+        setFuel={setFuel}
       />
       <div className='planetGrid'>{gridItemsToDisplay}</div>
+      <div>{fuel}</div>
+      {fuel <= 0 ? <WinOrLoose status='Loose' /> : null}
     </div>
   );
 };
