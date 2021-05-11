@@ -12,6 +12,7 @@ const Popup = ({
   spaceShipMove,
   fuel,
   setFuel,
+  destinationPositionX,
 }) => {
   const [coordinateToDisplay, setCoordinateToDisplay] = useState({
     left: 0,
@@ -43,7 +44,7 @@ const Popup = ({
       <button
         className='visitOrInteract'
         onClick={() => {
-          spaceShipMove();
+          spaceShipMove(destinationPositionX);
           clickVisitPlanet(planet && planet.id);
           setFuel(fuel - distance);
         }}

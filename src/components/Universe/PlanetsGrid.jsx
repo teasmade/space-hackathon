@@ -14,7 +14,7 @@ import { ReactComponent as Planet7 } from '../../icons/planet7.svg';
 import { ReactComponent as Planet8 } from '../../icons/planet8.svg';
 import { ReactComponent as Planet9 } from '../../icons/planet9.svg';
 import { ReactComponent as SpaceShip } from '../../icons/noun_Space_3713444.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import WinOrLoose from './Popup/WinOrLoose';
 
 const PlanetsGrid = () => {
@@ -122,8 +122,14 @@ const PlanetsGrid = () => {
     setIsPopupShown(false);
   };
 
+  const handleSpaceShipMove = (destX) => {
+    console.log(JSON.parse(JSON.stringify(shipPositionX)), destX);
+    setShipPositionX(destinationPositionX);
+    setShipPositionY(destinationPositionY);
+    console.log(JSON.parse(JSON.stringify(shipPositionX)), destX);
+  };
+
   const handleCalculateDistance = (e) => {
-    console.log(shipPositionX, e.clientX);
     const diffX = shipPositionX - e.clientX;
     const diffY = shipPositionY - e.clientY;
     setDistance(
@@ -132,19 +138,6 @@ const PlanetsGrid = () => {
           parseInt(Math.abs(diffX)) ** 2 + parseInt(Math.abs(diffY)) ** 2
         )
       )
-    );
-  };
-
-  const handleSpaceShipMove = () => {
-    console.log(
-      JSON.parse(JSON.stringify(shipPositionX)),
-      destinationPositionX
-    );
-    setShipPositionX(destinationPositionX);
-    setShipPositionY(destinationPositionY);
-    console.log(
-      JSON.parse(JSON.stringify(shipPositionX)),
-      destinationPositionX
     );
   };
 
@@ -174,6 +167,7 @@ const PlanetsGrid = () => {
         spaceShipMove={handleSpaceShipMove}
         fuel={fuel}
         setFuel={setFuel}
+        destinationPositionX={destinationPositionX}
       />
       <div className='planetGrid'>{gridItemsToDisplay}</div>
       <div>{fuel}</div>
