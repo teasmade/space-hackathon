@@ -2,6 +2,7 @@ import PlanetItem from './PlanetItem';
 
 import planetList from '../../planetList';
 import './PlanetsGrid.scss';
+import './SpaceShip.scss';
 import { ReactComponent as Planet0 } from '../../icons/planet0.svg';
 import { ReactComponent as Planet1 } from '../../icons/planet1.svg';
 import { ReactComponent as Planet2 } from '../../icons/planet2.svg';
@@ -12,12 +13,16 @@ import { ReactComponent as Planet6 } from '../../icons/planet6.svg';
 import { ReactComponent as Planet7 } from '../../icons/planet7.svg';
 import { ReactComponent as Planet8 } from '../../icons/planet8.svg';
 import { ReactComponent as Planet9 } from '../../icons/planet9.svg';
+import { ReactComponent as SpaceShip } from '../../icons/noun_Space_3713441.svg';
 import { useEffect, useState } from 'react';
 
 const PlanetsGrid = ({ dataReady, setData }) => {
   let listPlanetWithContent = planetList;
   const gridItems = new Array(400).fill({ isPlanet: false });
   const [gridItemsToDisplay, setGridItemsToDisplay] = useState([]);
+
+  const [posX, setPosX] = useState(20);
+  const [posY, setPosY] = useState(20);
 
   const iconsArray = [
     Planet0,
@@ -82,7 +87,7 @@ const PlanetsGrid = ({ dataReady, setData }) => {
           key={index}
           planetType={item && item.isPlanet ? item.type : null}
           isPlanet={item && item.isPlanet}
-          click={() => console.log(item)}
+          click={(e) => handleCalculateDistance(e)}
         >
           {item.isPlanet ? iconsArray[Math.floor(Math.random() * 10)] : null}
         </PlanetItem>
@@ -101,6 +106,20 @@ const PlanetsGrid = ({ dataReady, setData }) => {
     );
   };
 
+  const handleSpaceShipMove = (e) => {
+    console.log(window.innerWidth, e.clientY);
+    setPosX(e.clientX - 20);
+    setPosY(e.clientY - 20);
+  };
+
+  const handleCalculateDistance = (e) => {
+    const diffX = posX - e.clientX;
+    const diffY = posY - e.clientY;
+    return Math.round(
+      Math.sqrt(parseInt(Math.abs(diffX)) ** 2 + parseInt(Math.abs(diffY)) ** 2)
+    );
+  };
+
   useEffect(() => {
     preparePlanetsData();
     createPlanetGrid();
@@ -108,6 +127,10 @@ const PlanetsGrid = ({ dataReady, setData }) => {
 
   return (
     <div className='gridContainer'>
+      <SpaceShip
+        className='spaceship'
+        style={{ top: posY, left: posX, transition: 'all 1000ms ease-in-out' }}
+      />
       <div className='planetGrid'>{gridItemsToDisplay}</div>
     </div>
   );
