@@ -1,6 +1,5 @@
-const PlanetItem = ({ isPlanet, children }) => {
+const PlanetItem = ({ isPlanet, children, click }) => {
   const PlanetIcon = children;
-  console.log('PlanetIcon', PlanetIcon);
   function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
@@ -24,15 +23,16 @@ const PlanetItem = ({ isPlanet, children }) => {
 
   return (
     <div className='planetGridItem'>
-      <div className={`${isPlanet ? 'planet' : null}`} style={style}>
-        {isPlanet ? (
+      {isPlanet ? (
+        <div className={'planet'} style={style}>
           <PlanetIcon
+            onClick={click}
             className='planetIcon'
             stroke={`${getRandomColor()}`}
             strokeWidth='2'
           />
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </div>
   );
 };

@@ -57,7 +57,7 @@ const PlanetsGrid = () => {
 
   const createPlanetGrid = () => {
     //here we take the gridItems (20*20 grid) and we randomly put some of the 50 planets inside
-    let i = 0;
+    let i = 1;
 
     while (i < listPlanetWithContent.length) {
       const random = Math.floor(Math.random() * 400);
@@ -73,9 +73,9 @@ const PlanetsGrid = () => {
         key={index}
         planetType={item && item.isPlanet ? item.type : null}
         isPlanet={item && item.isPlanet}
-        onClick={() => console.log(item)}
+        click={() => console.log(item)}
       >
-        {item.isPlanet ? iconsArray[Math.floor(Math.random() * 400)] : null}
+        {item.isPlanet ? iconsArray[Math.floor(Math.random() * 10)] : null}
       </PlanetItem>
     ));
   };
