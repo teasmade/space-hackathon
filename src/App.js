@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import PlanetsGrid from './components/Universe/PlanetsGrid';
 
 function App() {

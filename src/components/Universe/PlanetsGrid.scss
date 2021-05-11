@@ -1,0 +1,39 @@
+.gridContainer {
+  width: 100vw;
+  height: 100vh;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+.planetGrid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+}
+
+.planetGridItem {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.planet {
+  width: 40%;
+  height: 40%;
+}
+
+.planetIcon {
+  transform: scale(1);
+  transition: all 100ms ease-in-out;
+  filter: drop-shadow(0 0 0.75rem crimson);
+
+  &:hover {
+    filter: contrast(97%) drop-shadow(0 0 0.75rem crimson);
+    transform: scale(1.2);
+    transition: all 100ms ease-in-out;
+  }
+}
