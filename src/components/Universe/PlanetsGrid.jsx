@@ -12,6 +12,7 @@ import { ReactComponent as Planet6 } from '../../icons/planet6.svg';
 import { ReactComponent as Planet7 } from '../../icons/planet7.svg';
 import { ReactComponent as Planet8 } from '../../icons/planet8.svg';
 import { ReactComponent as Planet9 } from '../../icons/planet9.svg';
+import spaceShip from '../../assets/images/spaceShip.png';
 import { useEffect, useState } from 'react';
 
 const PlanetsGrid = ({ dataReady, setData }) => {
@@ -114,6 +115,7 @@ const PlanetsGrid = ({ dataReady, setData }) => {
 
   return (
     <div className='gridContainer'>
+      <img className='spaceShip' src={spaceShip} alt={spaceShip} />
       <Popup
         show={isPopupShown}
         click={() => setIsPopupShown(false)}
