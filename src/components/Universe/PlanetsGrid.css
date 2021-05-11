@@ -9,6 +9,8 @@
     display: grid;
     grid-template-columns: repeat(20, 1fr);
     grid-template-rows: repeat(20, 1fr);
+    background-image: url('../../assets/starsbg.jpg');
+    background-size: 100%;
 }
 
 .planetGridItem {

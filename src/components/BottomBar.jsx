@@ -3,7 +3,7 @@ import './Bars.scss';
 function BottomBar() {
     return (
         <div className='bottomBar'>
-            <p>BOTTOM</p>
+            <p></p>
         </div>
     );
 }

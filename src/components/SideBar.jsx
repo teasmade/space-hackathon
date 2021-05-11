@@ -1,9 +1,9 @@
 import './Bars.scss';
 
-function SideBar() {
+function SideBar({ side }) {
     return (
-        <div className='sideBar'>
-            <p>SIDE</p>
+        <div className={side}>
+            <p></p>
         </div>
     );
 }

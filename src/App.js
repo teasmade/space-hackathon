@@ -9,9 +9,9 @@ function App() {
         <div className='App'>
             <TopBar />
             <div className='gridWrapper'>
-                <SideBar />
+                <SideBar side='sideBarLeft' />
                 <PlanetsGrid></PlanetsGrid>
-                <SideBar />
+                <SideBar side='sideBarRight' />
             </div>
             <BottomBar />
         </div>
