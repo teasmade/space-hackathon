@@ -1,0 +1,33 @@
+.gridWrapper {
+    display: flex;
+}
+
+.bottomBar {
+    height: 12vh;
+    background-image: url('../assets/cbottom.jpg');
+    background-size: 100%;
+}
+
+.topBar {
+    height: 6vh;
+    background-image: url('../assets/ctop.jpg');
+    background-size: 100%;
+    background-color: #607b7d;
+}
+
+.sideBar {
+    width: 15vw;
+    background-color: #607b7d;
+}
+
+.sideBarLeft {
+    width: 5vw;
+    background-image: url('../assets/cleft.jpg');
+    background-size: 100%;
+}
+
+.sideBarRight {
+    width: 5vw;
+    background-image: url('../assets/cright.jpg');
+    background-size: 100%;
+}
