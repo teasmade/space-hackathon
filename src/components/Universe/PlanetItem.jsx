@@ -1,5 +1,6 @@
 const PlanetItem = ({ isPlanet, children, click }) => {
   const PlanetIcon = children;
+
   function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';

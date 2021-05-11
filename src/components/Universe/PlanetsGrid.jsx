@@ -1,5 +1,5 @@
 import PlanetItem from './PlanetItem';
-
+import Popup from './Popup/Popup';
 import planetList from '../../planetList';
 import './PlanetsGrid.scss';
 import { ReactComponent as Planet0 } from '../../icons/planet0.svg';
@@ -18,6 +18,9 @@ const PlanetsGrid = ({ dataReady, setData }) => {
   let listPlanetWithContent = planetList;
   const gridItems = new Array(400).fill({ isPlanet: false });
   const [gridItemsToDisplay, setGridItemsToDisplay] = useState([]);
+  const [isPopupShown, setIsPopupShown] = useState(false);
+  const [mouseCoordinates, setMouseCoordinates] = useState([null, null]);
+  const [planetVisiting, setPlanetVisiting] = useState(null);
 
   const iconsArray = [
     Planet0,
@@ -38,11 +41,9 @@ const PlanetsGrid = ({ dataReady, setData }) => {
     let oilNumber = 0;
 
     //add elon musk on planet
-    console.log('before', JSON.parse(JSON.stringify(listPlanetWithContent)));
     while (elonMuskNumber < 10) {
       const planetIndex = Math.floor(Math.random() * 50);
       if (listPlanetWithContent[planetIndex].type === null) {
-        console.log('encore un elon musk', elonMuskNumber);
         listPlanetWithContent[planetIndex].type = 'ELON_MUSK';
         elonMuskNumber++;
       }
@@ -56,10 +57,6 @@ const PlanetsGrid = ({ dataReady, setData }) => {
         oilNumber++;
       }
     }
-    console.log(
-      'numbers base',
-      JSON.parse(JSON.stringify(listPlanetWithContent))
-    );
   };
 
   const createPlanetGrid = () => {
@@ -67,7 +64,6 @@ const PlanetsGrid = ({ dataReady, setData }) => {
     let i = 0;
 
     while (i < listPlanetWithContent.length) {
-      console.log(i);
       const random = Math.floor(Math.random() * 399) + 1;
       if (!gridItems[random].isPlanet) {
         gridItems[random] = listPlanetWithContent[i];
@@ -82,23 +78,19 @@ const PlanetsGrid = ({ dataReady, setData }) => {
           key={index}
           planetType={item && item.isPlanet ? item.type : null}
           isPlanet={item && item.isPlanet}
-          click={() => console.log(item)}
+          click={(event) => showPopup(event, item)}
         >
           {item.isPlanet ? iconsArray[Math.floor(Math.random() * 10)] : null}
         </PlanetItem>
       ))
     );
+  };
 
-    console.log(gridItemsToDisplay);
-    console.log(
-      'number of elonMusk',
-      gridItemsToDisplay.filter((elm) => elm.props.planetType === 'ELON_MUSK')
-        .length
-    );
-    console.log(
-      'number of oil',
-      gridItemsToDisplay.filter((elm) => elm.props.planetType === 'OIL').length
-    );
+  const showPopup = (event, item) => {
+    console.log('event', event);
+    setMouseCoordinates([event.clientX, event.clientY]);
+    setPlanetVisiting(item);
+    setIsPopupShown(true);
   };
 
   useEffect(() => {
@@ -108,6 +100,12 @@ const PlanetsGrid = ({ dataReady, setData }) => {
 
   return (
     <div className='gridContainer'>
+      <Popup
+        show={isPopupShown}
+        click={() => setIsPopupShown(false)}
+        coordinates={mouseCoordinates}
+        planet={planetVisiting}
+      />
       <div className='planetGrid'>{gridItemsToDisplay}</div>
     </div>
   );
