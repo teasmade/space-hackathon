@@ -1,11 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
-import PlanetsGrid from './components/Universe/PlanetsGrid';
+import Parallax from './components/Parallax/Parallax.jsx';
+
+/* import PlanetsGrid from './components/Universe/PlanetsGrid'; */
 
 function App() {
   return (
     <div className='App'>
-      <PlanetsGrid></PlanetsGrid>
+      <Parallax />
+      {/*  <PlanetsGrid></PlanetsGrid> */}
     </div>
   );
 }
