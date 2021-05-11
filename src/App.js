@@ -6,10 +6,12 @@ import PlanetsGrid from './components/Universe/PlanetsGrid';
 import React from 'react';
 import Crawl from 'react-star-wars-crawl';
 import 'react-star-wars-crawl/lib/index.css';
+import ScriptTag from 'react-script-tag';
 
 function App() {
     return (
         <div className='App'>
+            <ScriptTag type='text/javascript' src='./sketch.js' />
             <Crawl
                 title='Episode 2021'
                 subTitle='To the Moon!'
