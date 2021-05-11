@@ -1,6 +1,8 @@
-const PlanetItem = ({ isPlanet, children, click }) => {
-  const PlanetIcon = children;
+import { useEffect, useState } from 'react';
 
+const PlanetItem = ({ isPlanet, children, click }) => {
+  const [specs, setSpecs] = useState({});
+  const PlanetIcon = children;
   function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
@@ -16,20 +18,25 @@ const PlanetItem = ({ isPlanet, children, click }) => {
       ? Math.floor(Math.random() * 15)
       : Math.floor(Math.random() * 15) * -1;
   }
-  const style = {
-    transform: `translate(${randomTranslate()}px, ${randomTranslate()}px) rotate(${Math.floor(
-      Math.random() * 360
-    )}deg)`,
-  };
+
+  useEffect(() => {
+    let color = getRandomColor();
+    let translate = {
+      transform: `translate(${randomTranslate()}px, ${randomTranslate()}px) rotate(${Math.floor(
+        Math.random() * 360
+      )}deg)`,
+    };
+    setSpecs({ color: color, translate: translate });
+  }, []);
 
   return (
     <div className='planetGridItem'>
       {isPlanet ? (
-        <div className={'planet'} style={style}>
+        <div className={'planet'} style={specs.translate}>
           <PlanetIcon
             onClick={click}
             className='planetIcon'
-            stroke={`${getRandomColor()}`}
+            stroke={specs.color}
             strokeWidth='2'
           />
         </div>

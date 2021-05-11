@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import './Popup.scss';
 
-const Popup = ({ show, click, coordinates, planet }) => {
+const Popup = ({ show, click, coordinates, planet, clickVisitPlanet }) => {
   const [coordinateToDisplay, setCoordinateToDisplay] = useState({
     left: 0,
     top: 0,
   });
 
   const placePopup = () => {
-    console.log('efe', planet);
     //place popup to avoid it to overflow
     let top = null;
     let left = null;
@@ -30,7 +29,12 @@ const Popup = ({ show, click, coordinates, planet }) => {
 
   const prepareButton = () => {
     return planet && !planet.visited ? (
-      <button className='visitOrInteract'>Visit {planet && planet.name}</button>
+      <button
+        className='visitOrInteract'
+        onClick={() => clickVisitPlanet(planet && planet.id)}
+      >
+        Visit {planet && planet.name}
+      </button>
     ) : (
       <div>You have already visited {planet && planet.name}</div>
     );
