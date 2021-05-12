@@ -138,6 +138,7 @@ const PlanetsGrid = ({ startGame }) => {
         let gridToUpdate = [...filledGrid];
         gridToUpdate[index].visited = true;
         createNewGrid(filledGrid);
+        setPlanetVisiting(null);
       }, 1500);
     }, 1200);
   };
@@ -178,16 +179,18 @@ const PlanetsGrid = ({ startGame }) => {
           transition: 'all 1000ms ease-in-out',
         }}
       />
-      <Popup
-        show={isPopupShown}
-        click={() => setIsPopupShown(false)}
-        coordinates={mouseCoordinates}
-        planet={planetVisiting}
-        clickVisitPlanet={visitPlanet}
-        distance={distance}
-        setTempFuel={setTempFuel}
-        startGame={startGame}
-      />
+      {isPopupShown ? (
+        <Popup
+          show={isPopupShown}
+          click={() => setIsPopupShown(false)}
+          coordinates={mouseCoordinates}
+          planet={planetVisiting}
+          clickVisitPlanet={visitPlanet}
+          distance={distance}
+          setTempFuel={setTempFuel}
+          startGame={startGame}
+        />
+      ) : null}
       <div className='planetGrid'>{gridItemsToDisplay}</div>
       <div>{fuel}</div>
       {fuel <= 0 ? <WinOrLoose status='Loose' /> : null}

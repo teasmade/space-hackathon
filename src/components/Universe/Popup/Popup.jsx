@@ -68,7 +68,7 @@ const Popup = ({
 
   useEffect(() => {
     placePopup();
-  }, [coordinates]);
+  }, []);
 
   return (
     <>
