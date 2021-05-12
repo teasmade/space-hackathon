@@ -22,7 +22,6 @@ function App() {
     }
   }, [showText]);
   const handleKeyDown = (e) => {
-    console.log(e);
     if (e.code === 'Space') {
       e.target.className = 'crawlerContainer opacify';
       setTimeout(() => {

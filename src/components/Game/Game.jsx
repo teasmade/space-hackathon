@@ -102,7 +102,6 @@ class Game extends React.Component {
             persoShoot[i].y >= elonY &&
             persoShoot[i].y <= elonY + 50
           ) {
-            console.log('dans ta mere');
             elonTouched++;
             persoShoot[i].evaporate();
           }
@@ -129,7 +128,6 @@ class Game extends React.Component {
             elonShoot[i].y >= p.mouseY &&
             elonShoot[i].y <= p.mouseY + 60
           ) {
-            console.log('oups');
             persoTouched++;
             elonShoot[i].evaporate();
           }
@@ -166,7 +164,6 @@ class Game extends React.Component {
         p.text('You loose...', 500, 500);
         gameFinished = true;
         setTimeout(() => {
-          console.log('supposed to be removed');
           this.props.killPerso();
           this.props.stopGame();
         }, 1000);

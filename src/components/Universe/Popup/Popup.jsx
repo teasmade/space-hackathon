@@ -40,7 +40,6 @@ const Popup = ({
 
   const prepareButton = () => {
     let buttonToDisplay = null;
-    console.log('prepare', planet);
     if (planet && !planet.preVisited && !planet.visited) {
       buttonToDisplay = (
         <button

@@ -19,7 +19,6 @@ import { useEffect, useState, useRef } from 'react';
 import WinOrLoose from './Popup/WinOrLoose';
 
 const PlanetsGrid = ({ startGame, win }) => {
-  console.log('win', win);
   let listPlanetWithContent = planetList;
   const emptyGrid = new Array(400).fill({ isPlanet: false });
   const [filledGrid, setFilledGrid] = useState([]);
@@ -137,10 +136,8 @@ const PlanetsGrid = ({ startGame, win }) => {
   };
 
   const handleSpaceShipMove = (destX) => {
-    console.log(JSON.parse(JSON.stringify(shipPositionX)), destX);
     setShipPositionX(destinationPositionX);
     setShipPositionY(destinationPositionY);
-    console.log(JSON.parse(JSON.stringify(shipPositionX)), destX);
   };
 
   const handleCalculateDistance = (e) => {
