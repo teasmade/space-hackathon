@@ -13,6 +13,7 @@ import galaxy from './assets/images/galaxy.png';
 /* import PlanetsGrid from './components/Universe/PlanetsGrid'; */
 
 function App() {
+
   const style = {
     fondetoile: {
       backgroundPosition: 'center',
@@ -44,9 +45,13 @@ function App() {
   const cool = () => {
     console.log('super');
   };
-  // return <Game cool={cool}></Game>;
+
+
   const [showText, setShowText] = useState(true);
   const [opacifyText, setOpacifyText] = useState(true);
+  const [playGame, setPlayGame] = useState(false);
+  const [nbMuskKilled, setNbMuskKilled] = useState(0);
+  const [nbDeath, setNbDeath] = useState(0);
   useEffect(() => {
     if (showText) {
       setTimeout(() => {
@@ -82,6 +87,7 @@ function App() {
         }`}
       >
         <div className='crawler-skip'>Press space to skip intro</div>
+
         <div className='crawlerBackdrop'>
           <Crawl
             title='Episode 2021'
@@ -90,6 +96,7 @@ function App() {
           />
         </div>
       </div>
+
       <div>
         <ParallaxMousemove containerStyle={style.fondetoile} fullHeight={true}>
           <ParallaxMousemove.Layer
@@ -152,6 +159,19 @@ function App() {
           ></ParallaxMousemove.Layer>
         </ParallaxMousemove>
       </div>
+
+
+      {playGame ? (
+        <Game
+          killMusk={() => setNbMuskKilled(nbMuskKilled + 1)}
+          killPerso={() => {
+            setNbDeath(nbDeath + 1);
+          }}
+          stopGame={() => setPlayGame(false)}
+        />
+      ) : null}
+      <PlanetsGrid startGame={() => setPlayGame(true)}></PlanetsGrid>
+
     </div>
   );
 }

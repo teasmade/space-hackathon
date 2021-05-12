@@ -18,7 +18,7 @@ import spaceShip from '../../assets/images/spaceShip.png';
 import { useEffect, useState, useRef } from 'react';
 import WinOrLoose from './Popup/WinOrLoose';
 
-const PlanetsGrid = () => {
+const PlanetsGrid = ({ startGame }) => {
   let listPlanetWithContent = planetList;
   const emptyGrid = new Array(400).fill({ isPlanet: false });
   const [filledGrid, setFilledGrid] = useState([]);
@@ -33,6 +33,7 @@ const PlanetsGrid = () => {
   const [destinationPositionX, setDestinationPositionX] = useState(0);
   const [destinationPositionY, setDestinationPositionY] = useState(0);
   const [fuel, setFuel] = useState(3000);
+  const [tempFuel, setTempFuel] = useState(0);
 
   const iconsArray = [
     Planet0,
@@ -47,6 +48,13 @@ const PlanetsGrid = () => {
     Planet9,
   ];
 
+  useEffect(() => {
+    if (tempFuel) {
+      setIsPopupShown(false);
+      setFuel(fuel + tempFuel);
+      setTempFuel(0);
+    }
+  }, [tempFuel]);
   const preparePlanetsData = () => {
     //here we take the planet list, and we add elon musks and oil on random ones
     let elonMuskNumber = 0;
@@ -118,9 +126,21 @@ const PlanetsGrid = () => {
   const visitPlanet = (id) => {
     const index = filledGrid.findIndex((elm) => elm.id === id);
     let gridToUpdate = [...filledGrid];
-    gridToUpdate[index].visited = true;
+    gridToUpdate[index].preVisited = true;
     createNewGrid(filledGrid);
     setIsPopupShown(false);
+    handleSpaceShipMove();
+    setFuel(fuel - distance);
+    setTimeout(() => {
+      setIsPopupShown(true);
+      setTimeout(() => {
+        setIsPopupShown(false);
+        let gridToUpdate = [...filledGrid];
+        gridToUpdate[index].visited = true;
+        createNewGrid(filledGrid);
+        setPlanetVisiting(null);
+      }, 1500);
+    }, 1200);
   };
 
   const handleSpaceShipMove = () => {
@@ -159,18 +179,20 @@ const PlanetsGrid = () => {
           transition: 'all 1000ms ease-in-out',
         }}
       />
-      <Popup
-        show={isPopupShown}
-        click={() => setIsPopupShown(false)}
-        coordinates={mouseCoordinates}
-        planet={planetVisiting}
-        clickVisitPlanet={visitPlanet}
-        distance={distance}
-        spaceShipMove={handleSpaceShipMove}
-        fuel={fuel}
-        setFuel={setFuel}
-        shipPositionX={shipPositionX}
-      />
+
+      {isPopupShown ? (
+        <Popup
+          show={isPopupShown}
+          click={() => setIsPopupShown(false)}
+          coordinates={mouseCoordinates}
+          planet={planetVisiting}
+          clickVisitPlanet={visitPlanet}
+          distance={distance}
+          setTempFuel={setTempFuel}
+          startGame={startGame}
+        />
+      ) : null}
+
       <div className='planetGrid'>{gridItemsToDisplay}</div>
       <div
         className='progress-bar-container'
