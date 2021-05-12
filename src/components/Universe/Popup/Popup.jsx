@@ -1,4 +1,3 @@
-import { computeHeadingLevel } from '@testing-library/dom';
 import { useEffect, useState } from 'react';
 import './Popup.scss';
 
@@ -9,10 +8,8 @@ const Popup = ({
   planet,
   clickVisitPlanet,
   distance,
-  spaceShipMove,
-  fuel,
-  setFuel,
-  destinationPositionX,
+  setTempFuel,
+  startGame,
 }) => {
   const [coordinateToDisplay, setCoordinateToDisplay] = useState({
     left: 0,
@@ -40,20 +37,33 @@ const Popup = ({
   };
 
   const prepareButton = () => {
-    return planet && !planet.visited ? (
-      <button
-        className='visitOrInteract'
-        onClick={() => {
-          spaceShipMove(destinationPositionX);
-          clickVisitPlanet(planet && planet.id);
-          setFuel(fuel - distance);
-        }}
-      >
-        Visit {planet && planet.name}
-      </button>
-    ) : (
-      <div>You have already visited {planet && planet.name}</div>
-    );
+    console.log('prepare', planet);
+    if (planet && !planet.preVisited && !planet.visited) {
+      return (
+        <button
+          className='visitOrInteract'
+          onClick={() => {
+            clickVisitPlanet(planet && planet.id);
+          }}
+        >
+          Visit {planet && planet.name}
+        </button>
+      );
+    } else if (planet && planet.preVisited && !planet.visited) {
+      if (planet.type === 'OIL') {
+        let oil = Math.floor(Math.random() * 200) + 100;
+        // setTempFuel(oil);
+        return <div>You find a nice stock of oil ! Oil found : {oil}</div>;
+      } else if (planet.type === 'ELON_MUSK') {
+        setTimeout(() => startGame(), 2000);
+
+        return (
+          <div>You find a clone of Elon Musk !! You must destroy it !</div>
+        );
+      } else return <div>Sadly, this planet is empty.</div>;
+    } else if (planet && planet.preVisited && planet.visited) {
+      return <div>You have already visited {planet && planet.name}</div>;
+    }
   };
 
   useEffect(() => {

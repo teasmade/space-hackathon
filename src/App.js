@@ -64,7 +64,7 @@ function App() {
           stopGame={() => setPlayGame(false)}
         />
       ) : null}
-      <PlanetsGrid></PlanetsGrid>
+      <PlanetsGrid startGame={() => setPlayGame(true)}></PlanetsGrid>
     </div>
   );
 }

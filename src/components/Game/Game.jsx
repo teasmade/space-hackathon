@@ -34,7 +34,6 @@ class Game extends React.Component {
   Sketch = (p) => {
     let img;
     let persoX = 50;
-    let persoY;
     let elonX = p.windowWidth - 100;
     let elonY = p.windowHeight / 2;
     let elonDir = 1;
@@ -47,14 +46,34 @@ class Game extends React.Component {
     let elonLoose = false;
     let persoLoose = false;
     let gameFinished = false;
+    let start = true;
 
     p.setup = () => {
       p.createCanvas(window.innerWidth, window.innerHeight);
       img = p.loadImage(perso);
+      persoShoot = [];
+      elonShoot = [];
+      canShoot = true;
+      elonCanShoot = true;
+      elonTouched = 0;
+      persoTouched = 0;
+      elonLoose = false;
+      persoLoose = false;
+      gameFinished = false;
+      start = true;
     };
 
     p.draw = () => {
-      if (!persoLoose && !elonLoose) {
+      if (start) {
+        p.background(255);
+
+        p.textSize(100);
+        p.text('Fight Elon Musk clone !', 350, 500);
+        setTimeout(() => {
+          start = false;
+        }, 2000);
+      }
+      if (!persoLoose && !elonLoose && !start) {
         moveElon();
         p.background(0);
         p.fill(255);
@@ -124,10 +143,18 @@ class Game extends React.Component {
         p.fill(255);
         p.textSize(100);
         p.text('You win !!!', 500, 500);
+        setTimeout(() => {
+          this.props.killMusk();
+          this.props.stopGame();
+        }, 1000);
       } else if (persoLoose && !gameFinished) {
         p.fill(255);
         p.textSize(100);
         p.text('You loose...', 500, 500);
+        setTimeout(() => {
+          this.props.killPerso();
+          this.props.stopGame();
+        }, 1000);
       }
     };
 
@@ -169,7 +196,7 @@ class Game extends React.Component {
 
   componentDidUpdate() {
     // TODO: cleanup old sketches
-    new p5(this.Sketch, this.processingRef.current);
+    new p5(this.Sketch, this.myRef.current);
   }
   render() {
     return <div ref={this.myRef}></div>;
