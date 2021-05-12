@@ -61,7 +61,7 @@ const PlanetsGrid = ({ startGame }) => {
     let oilNumber = 0;
 
     //add elon musk on planet
-    while (elonMuskNumber < 10) {
+    while (elonMuskNumber < 30) {
       const planetIndex = Math.floor(Math.random() * 50);
       if (listPlanetWithContent[planetIndex].type === null) {
         listPlanetWithContent[planetIndex].type = 'ELON_MUSK';

@@ -1,6 +1,8 @@
 import p5 from 'p5';
 import React from 'react';
 import perso from '../../icons/perso.png';
+import elonHead from '../../icons/elonhead.png';
+import mars from '../../icons/2k_mars.jpg';
 import './Game.scss';
 
 class Shoot {
@@ -13,7 +15,7 @@ class Shoot {
   }
 
   render() {
-    this.elon ? this.p.fill(255, 0, 0) : this.p.fill(0, 0, 255);
+    this.elon ? this.p.fill(255) : this.p.fill(0, 0, 255);
     this.p.rect(this.x, this.y, 10, 5);
   }
 
@@ -33,6 +35,8 @@ class Game extends React.Component {
 
   Sketch = (p) => {
     let img;
+    let img2;
+    let imgBackground;
     let persoX = 50;
     let elonX = p.windowWidth - 100;
     let elonY = p.windowHeight / 2;
@@ -51,6 +55,8 @@ class Game extends React.Component {
     p.setup = () => {
       p.createCanvas(window.innerWidth, window.innerHeight);
       img = p.loadImage(perso);
+      img2 = p.loadImage(elonHead);
+      imgBackground = p.loadImage(mars);
       persoShoot = [];
       elonShoot = [];
       canShoot = true;
@@ -64,8 +70,11 @@ class Game extends React.Component {
     };
 
     p.draw = () => {
+      if (gameFinished) {
+        p.noLoop();
+      }
       if (start) {
-        p.background(255);
+        p.background(imgBackground);
 
         p.textSize(100);
         p.text('Fight Elon Musk clone !', 350, 500);
@@ -73,11 +82,10 @@ class Game extends React.Component {
           start = false;
         }, 2000);
       }
-      if (!persoLoose && !elonLoose && !start) {
+      if (!persoLoose && !elonLoose && !start && !gameFinished) {
         moveElon();
-        p.background(0);
-        p.fill(255);
-        p.rect(elonX, elonY, 50, 50);
+        p.background(imgBackground);
+        p.image(img2, elonX, elonY);
         p.image(img, persoX, p.mouseY);
 
         //move perso shoots
@@ -143,6 +151,8 @@ class Game extends React.Component {
         p.fill(255);
         p.textSize(100);
         p.text('You win !!!', 500, 500);
+        gameFinished = true;
+
         setTimeout(() => {
           this.props.killMusk();
           this.props.stopGame();
@@ -151,7 +161,9 @@ class Game extends React.Component {
         p.fill(255);
         p.textSize(100);
         p.text('You loose...', 500, 500);
+        gameFinished = true;
         setTimeout(() => {
+          console.log('supposed to be removed');
           this.props.killPerso();
           this.props.stopGame();
         }, 1000);
@@ -199,7 +211,7 @@ class Game extends React.Component {
     new p5(this.Sketch, this.myRef.current);
   }
   render() {
-    return <div ref={this.myRef}></div>;
+    return <div className='game' ref={this.myRef}></div>;
   }
 }
 
