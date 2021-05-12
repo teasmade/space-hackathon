@@ -13,7 +13,7 @@ import { ReactComponent as Planet6 } from '../../icons/planet6.svg';
 import { ReactComponent as Planet7 } from '../../icons/planet7.svg';
 import { ReactComponent as Planet8 } from '../../icons/planet8.svg';
 import { ReactComponent as Planet9 } from '../../icons/planet9.svg';
-import { ReactComponent as SpaceShip } from '../../icons/noun_Space_3713444.svg';
+import { ReactComponent as SpaceShip } from '../../icons/noun_Rocket_3713741.svg';
 import spaceShip from '../../assets/images/spaceShip.png';
 import { useEffect, useState, useRef } from 'react';
 import WinOrLoose from './Popup/WinOrLoose';
@@ -120,37 +120,34 @@ const PlanetsGrid = ({ startGame, win }) => {
     let gridToUpdate = [...filledGrid];
     gridToUpdate[index].preVisited = true;
     createNewGrid(filledGrid);
+    
     setIsPopupShown(false);
     handleSpaceShipMove();
     setFuel(fuel - distance);
     setTimeout(() => {
-      setIsPopupShown(true);
-      setTimeout(() => {
-        setIsPopupShown(false);
-        let gridToUpdate = [...filledGrid];
-        gridToUpdate[index].visited = true;
-        createNewGrid(filledGrid);
-        setPlanetVisiting(null);
-      }, 1500);
+        setIsPopupShown(true);
+        setTimeout(() => {
+            setIsPopupShown(false);
+            let gridToUpdate = [...filledGrid];
+            gridToUpdate[index].visited = true;
+            createNewGrid(filledGrid);
+            setPlanetVisiting(null);
+        }, 1500);
     }, 1200);
-  };
+};
 
   const handleSpaceShipMove = (destX) => {
     setShipPositionX(destinationPositionX);
     setShipPositionY(destinationPositionY);
   };
 
-  const handleCalculateDistance = (e) => {
-    const diffX = shipPositionX - e.clientX;
-    const diffY = shipPositionY - e.clientY;
-    setDistance(
-      Math.round(
-        Math.sqrt(
-          parseInt(Math.abs(diffX)) ** 2 + parseInt(Math.abs(diffY)) ** 2
-        )
-      )
-    );
-  };
+    const handleCalculateDistance = (e) => {
+        const diffX = shipPositionX - e.clientX;
+        const diffY = shipPositionY - e.clientY;
+        setDistance(
+            Math.round(Math.sqrt(parseInt(Math.abs(diffX)) ** 2 + parseInt(Math.abs(diffY)) ** 2))
+        );
+    };
 
   useEffect(() => {
     preparePlanetsData();
@@ -158,17 +155,19 @@ const PlanetsGrid = ({ startGame, win }) => {
   }, []);
 
   return (
-    <div className='gridContainer'>
-      <img className='spaceShip' src={spaceShip} alt='' />
-      <SpaceShip
-        className='spaceship'
-        style={{
-          top: shipPositionY,
-          left: shipPositionX,
-          zIndex: 20,
-          transition: 'all 1000ms ease-in-out',
-        }}
-      />
+   <div className='gridContainer'>
+            <img className='spaceShip' src={spaceShip} alt='' />
+            <SpaceShip
+                className='user-logo'
+                style={{
+                    top: shipPositionY,
+                    left: shipPositionX,
+                    zIndex: 20,
+                    transition: 'all 1000ms ease-in-out',
+                }}
+            />
+    
+    
       {isPopupShown ? (
         <Popup
           show={isPopupShown}
@@ -184,9 +183,30 @@ const PlanetsGrid = ({ startGame, win }) => {
       ) : null}
       <div className='planetGrid'>{gridItemsToDisplay}</div>
       <div>{fuel}</div>
+   <div
+                className='progress-bar-container'
+                style={{
+                    position: 'fixed',
+                    bottom: 150,
+                    right: 0,
+                    color: 'white',
+                }}
+            >
+                <label htmlFor='fuel'>
+                    Dogecoin : {'\n'} {fuel} / 3000
+                </label>
+                <progress
+                    className='progress-bar'
+                    id='fuel'
+                    max='3000'
+                    value={fuel}
+                    style={{ transform: 'rotate(-90deg) scale(1.5) translateX(10%)' }}
+                ></progress>
+            </div>
       {fuel <= 0 ? <WinOrLoose status='Loose' /> : null}
       {win ? <WinOrLoose status='Win' /> : null}
     </div>
   );
+
 };
 export default PlanetsGrid;

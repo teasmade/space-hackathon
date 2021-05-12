@@ -18,25 +18,26 @@ const Popup = ({
   });
   const [coolButton, setCoolButton] = useState(null);
 
-  const placePopup = () => {
-    //place popup to avoid it to overflow
-    let top = null;
-    let left = null;
 
-    if (coordinates[0] > window.innerWidth - 150) {
-      left = coordinates[0] - 150;
-    } else {
-      left = coordinates[0];
-    }
+    const placePopup = () => {
+        //place popup to avoid it to overflow
+        let top = null;
+        let left = null;
 
-    if (coordinates[1] > window.innerHeight - 300) {
-      top = coordinates[1] - 300;
-    } else {
-      top = coordinates[1];
-    }
+        if (coordinates[0] > window.innerWidth - 150) {
+            left = coordinates[0] - 150;
+        } else {
+            left = coordinates[0];
+        }
 
-    setCoordinateToDisplay({ left: left, top: top });
-  };
+        if (coordinates[1] > window.innerHeight - 300) {
+            top = coordinates[1] - 300;
+        } else {
+            top = coordinates[1];
+        }
+
+        setCoordinateToDisplay({ left: left, top: top });
+    };
 
   const prepareButton = () => {
     let buttonToDisplay = null;
@@ -106,6 +107,7 @@ const Popup = ({
       </div>
     </>
   );
+
 };
 
 export default Popup;
