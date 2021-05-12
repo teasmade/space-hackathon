@@ -13,14 +13,10 @@ import { ReactComponent as Planet6 } from '../../icons/planet6.svg';
 import { ReactComponent as Planet7 } from '../../icons/planet7.svg';
 import { ReactComponent as Planet8 } from '../../icons/planet8.svg';
 import { ReactComponent as Planet9 } from '../../icons/planet9.svg';
-<<<<<<< HEAD
-import spaceShip from '../../assets/images/spaceShip.png';
-import { useEffect, useState } from 'react';
-=======
 import { ReactComponent as SpaceShip } from '../../icons/noun_Space_3713444.svg';
+import spaceShip from '../../assets/images/spaceShip.png';
 import { useEffect, useState, useRef } from 'react';
 import WinOrLoose from './Popup/WinOrLoose';
->>>>>>> fuel-remove
 
 const PlanetsGrid = () => {
   let listPlanetWithContent = planetList;
@@ -153,7 +149,7 @@ const PlanetsGrid = () => {
 
   return (
     <div className='gridContainer'>
-      <img className='spaceShip' src={spaceShip} alt={spaceShip} />
+      <img className='spaceShip' src={spaceShip} alt='' />
       <SpaceShip
         className='spaceship'
         style={{
