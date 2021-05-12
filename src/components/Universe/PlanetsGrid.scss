@@ -1,22 +1,23 @@
 .gridContainer {
   width: 100vw;
   height: 100vh;
-  padding: 100px 0;
+  padding: 2% 0 5%;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .planetGrid {
-  width: 80%;
-  height: 80%;
+  width: 90%;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: repeat(20, 1fr);
 }
 
 .planetGridItem {
-  width: 100%;
+  width: 85%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -31,7 +32,7 @@
 .planetIcon {
   transform: scale(1);
   transition: all 100ms ease-in-out;
-  filter: drop-shadow(0 0 0.75rem crimson);
+  filter: drop-shadow(0 0 0.3rem rgba(255, 255, 255, 0.651));
 
   &:hover {
     filter: contrast(97%) drop-shadow(0 0 0.75rem crimson);
@@ -41,8 +42,11 @@
 }
 
 .spaceShip {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
+  width: 100vw;
+  z-index: 800;
+  pointer-events: none;
 }

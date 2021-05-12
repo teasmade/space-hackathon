@@ -14,23 +14,31 @@ import galaxy from './assets/images/galaxy.png';
 
 function App() {
   const style = {
-    outter: {
+    fondetoile: {
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       width: '100%',
+      height: '100%',
       position: 'relative',
       overflow: 'hidden',
     },
-    infoLayerStyle: {
+    galaxylayer: {
       background: 'center center/cover',
       width: '100%',
       position: 'relative',
       overflow: 'hidden',
       height: '100%',
     },
+    gridlayer: {
+      width: '100%',
+      position: 'relative',
+      top: '-100%',
+      overflow: 'hidden',
+      height: '100%',
+    },
     bgLayerStyle: {
       position: 'absolute',
-      height: '100%',
+      transform: 'translateY(2%)',
     },
   };
   const cool = () => {
@@ -82,12 +90,12 @@ function App() {
         </div>
       </div>
       <div>
-        <ParallaxMousemove containerStyle={style.outter} fullHeight={true}>
+        <ParallaxMousemove containerStyle={style.fondetoile} fullHeight={true}>
           <ParallaxMousemove.Layer
             layerStyle={style.bgLayerStyle}
             config={{
               xFactor: 0.05,
-              yFactor: 0,
+              yFactor: 0.02,
               springSettings: {
                 stiffness: 50,
                 damping: 30,
@@ -96,49 +104,51 @@ function App() {
           >
             <img
               src={fondEtoile}
-              style={{ width: '120%', transform: 'translateX(-10%)' }}
+              style={{
+                width: '110vw',
+                height: '110vh',
+                transform: 'translateX(-5%) ',
+              }}
               alt='Parallax Layer'
             ></img>
           </ParallaxMousemove.Layer>
-          <div style={style.infoLayerStyle}>
-            <ParallaxMousemove.Layer
-              layerStyle={style.infoLayerStyle}
-              config={{
-                xFactor: 0.2,
-                yFactor: 0,
-                springSettings: {
-                  stiffness: 50,
-                  damping: 30,
-                },
-              }}
-            >
-              <img src={galaxy} alt='Parallax Layer'></img>
-            </ParallaxMousemove.Layer>
-            <ParallaxMousemove.Layer
-              layerStyle={style.infoLayerStyle}
-              config={{
-                xFactor: 0.2,
-                yFactor: 0,
-                springSettings: {
-                  stiffness: 50,
-                  damping: 30,
-                },
-              }}
-            >
-              <PlanetsGrid></PlanetsGrid>
-            </ParallaxMousemove.Layer>
-            <ParallaxMousemove.Layer
-              layerStyle={style.bigLayerStyle}
-              config={{
-                xFactor: 0.3,
-                yFactor: 0,
-                springSettings: {
-                  stiffness: 50,
-                  damping: 30,
-                },
-              }}
-            ></ParallaxMousemove.Layer>
-          </div>
+          <ParallaxMousemove.Layer
+            layerStyle={style.galaxylayer}
+            config={{
+              xFactor: 0.05,
+              yFactor: 0.03,
+              springSettings: {
+                stiffness: 30,
+                damping: 20,
+              },
+            }}
+          >
+            <img src={galaxy} alt='Parallax Layer'></img>
+          </ParallaxMousemove.Layer>
+          <ParallaxMousemove.Layer
+            layerStyle={style.gridlayer}
+            config={{
+              xFactor: 0.02,
+              yFactor: 0.01,
+              springSettings: {
+                stiffness: 50,
+                damping: 30,
+              },
+            }}
+          >
+            <PlanetsGrid></PlanetsGrid>
+          </ParallaxMousemove.Layer>
+          <ParallaxMousemove.Layer
+            layerStyle={style.bigLayerStyle}
+            config={{
+              xFactor: 0.3,
+              yFactor: 0,
+              springSettings: {
+                stiffness: 50,
+                damping: 30,
+              },
+            }}
+          ></ParallaxMousemove.Layer>
         </ParallaxMousemove>
       </div>
     </div>

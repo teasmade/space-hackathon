@@ -151,7 +151,7 @@ const PlanetsGrid = () => {
     <div className='gridContainer'>
       <img className='spaceShip' src={spaceShip} alt='' />
       <SpaceShip
-        className='spaceship'
+        className='user-logo'
         style={{
           top: shipPositionY,
           left: shipPositionX,
@@ -172,7 +172,26 @@ const PlanetsGrid = () => {
         destinationPositionX={destinationPositionX}
       />
       <div className='planetGrid'>{gridItemsToDisplay}</div>
-      <div>{fuel}</div>
+      <div
+        classname='progress-bar-container'
+        style={{
+          position: 'fixed',
+          bottom: 150,
+          right: 0,
+          color: 'white',
+        }}
+      >
+        <label for='fuel'>
+          Fuel : {'\n'} {fuel} / 3000
+        </label>
+        <progress
+          classname='progress-bar'
+          id='fuel'
+          max='3000'
+          value={fuel}
+          style={{ transform: 'rotate(-90deg) scale(1.5) translateX(10%)' }}
+        ></progress>
+      </div>
       {fuel <= 0 ? <WinOrLoose status='Loose' /> : null}
     </div>
   );
