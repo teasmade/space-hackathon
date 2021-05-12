@@ -6,11 +6,12 @@ const WinOrLoose = ({ status }) => {
       <div>You {status}</div>
       <button
         type='button'
-        onClick={(e) =>
-          (e.target.parentNode.className = 'win-loose-popup-close')
-        }
+        onClick={(e) => {
+          e.target.parentNode.className = 'win-loose-popup-close';
+          document.location.reload();
+        }}
       >
-        click
+        click to restart !
       </button>
     </div>
   );

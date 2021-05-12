@@ -14,7 +14,7 @@ import galaxy from './assets/images/galaxy.png';
 /* import PlanetsGrid from './components/Universe/PlanetsGrid'; */
 
 function App() {
-    const style = {
+   const style = {
         fondetoile: {
             backgroundPosition: 'center',
             backgroundSize: 'cover',
@@ -41,9 +41,6 @@ function App() {
             position: 'absolute',
             transform: 'translateY(2%)',
         },
-    };
-    const cool = () => {
-        console.log('super');
     };
 
     const [showText, setShowText] = useState(true);
@@ -75,6 +72,7 @@ function App() {
         divRef.current.focus();
     }, []);
 
+      
     return (
         <div className='App'>
             <div
@@ -160,19 +158,21 @@ function App() {
             </div>
 
             {playGame ? (
-                <div className='game'>
-                    <Game
-                        killMusk={() => setNbMuskKilled(nbMuskKilled + 1)}
-                        killPerso={() => {
-                            setNbDeath(nbDeath + 1);
-                        }}
-                        stopGame={() => setPlayGame(false)}
-                    />
-                </div>
-            ) : null}
-            {/* <PlanetsGrid startGame={() => setPlayGame(true)}></PlanetsGrid> */}
-        </div>
-    );
+        <Game
+          killMusk={() => setNbMuskKilled(nbMuskKilled + 1)}
+          killPerso={() => {
+            setNbDeath(nbDeath + 1);
+          }}
+          stopGame={() => setPlayGame(false)}
+        />
+      ) : null}
+      <PlanetsGrid
+        win={nbMuskKilled ? true : false}
+        startGame={() => setPlayGame(true)}
+      ></PlanetsGrid>
+    </div>
+  );
+          
 }
 
 export default App;
