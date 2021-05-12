@@ -123,11 +123,9 @@ const PlanetsGrid = () => {
     setIsPopupShown(false);
   };
 
-  const handleSpaceShipMove = (destX) => {
-    console.log(JSON.parse(JSON.stringify(shipPositionX)), destX);
+  const handleSpaceShipMove = () => {
     setShipPositionX(destinationPositionX);
     setShipPositionY(destinationPositionY);
-    console.log(JSON.parse(JSON.stringify(shipPositionX)), destX);
   };
 
   const handleCalculateDistance = (e) => {
@@ -169,7 +167,7 @@ const PlanetsGrid = () => {
         spaceShipMove={handleSpaceShipMove}
         fuel={fuel}
         setFuel={setFuel}
-        destinationPositionX={destinationPositionX}
+        shipPositionX={shipPositionX}
       />
       <div className='planetGrid'>{gridItemsToDisplay}</div>
       <div
