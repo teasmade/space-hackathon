@@ -185,7 +185,6 @@ const PlanetsGrid = ({ startGame, win, loose }) => {
         />
       ) : null}
       <div className='planetGrid'>{gridItemsToDisplay}</div>
-      <div>{fuel}</div>
       <div
         className='progress-bar-container'
         style={{
@@ -195,9 +194,7 @@ const PlanetsGrid = ({ startGame, win, loose }) => {
           color: 'white',
         }}
       >
-        <label htmlFor='fuel'>
-          Dogecoin : {'\n'} {fuel} / 3000
-        </label>
+        <label htmlFor='fuel'>Dogecoin : {fuel} / 3000</label>
         <progress
           className='progress-bar'
           id='fuel'

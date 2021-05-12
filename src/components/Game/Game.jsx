@@ -7,7 +7,6 @@ import mars from '../../icons/2k_mars.jpg';
 import laser from '../../sound/laser.mp3';
 import elonCry from '../../sound/elonCry.mp3';
 import persoCry from '../../sound/persoCry.mp3';
-import useSound from 'use-sound';
 
 import './Game.scss';
 
