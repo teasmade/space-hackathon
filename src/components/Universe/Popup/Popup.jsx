@@ -15,6 +15,7 @@ const Popup = ({
     left: 0,
     top: 0,
   });
+  const [clicked, setClicked] = useState(false);
 
   const placePopup = () => {
     //place popup to avoid it to overflow
@@ -37,6 +38,7 @@ const Popup = ({
   };
 
   const prepareButton = () => {
+
     console.log('prepare', planet);
     if (planet && !planet.preVisited && !planet.visited) {
       return (
@@ -64,6 +66,7 @@ const Popup = ({
     } else if (planet && planet.preVisited && planet.visited) {
       return <div>You have already visited {planet && planet.name}</div>;
     }
+
   };
 
   useEffect(() => {
