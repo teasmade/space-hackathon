@@ -1,7 +1,19 @@
+import { computeHeadingLevel } from '@testing-library/dom';
 import { useEffect, useState } from 'react';
 import './Popup.scss';
 
-const Popup = ({ show, click, coordinates, planet, clickVisitPlanet }) => {
+const Popup = ({
+  show,
+  click,
+  coordinates,
+  planet,
+  clickVisitPlanet,
+  distance,
+  spaceShipMove,
+  fuel,
+  setFuel,
+  destinationPositionX,
+}) => {
   const [coordinateToDisplay, setCoordinateToDisplay] = useState({
     left: 0,
     top: 0,
@@ -31,7 +43,11 @@ const Popup = ({ show, click, coordinates, planet, clickVisitPlanet }) => {
     return planet && !planet.visited ? (
       <button
         className='visitOrInteract'
-        onClick={() => clickVisitPlanet(planet && planet.id)}
+        onClick={() => {
+          spaceShipMove(destinationPositionX);
+          clickVisitPlanet(planet && planet.id);
+          setFuel(fuel - distance);
+        }}
       >
         Visit {planet && planet.name}
       </button>
@@ -64,6 +80,7 @@ const Popup = ({ show, click, coordinates, planet, clickVisitPlanet }) => {
           <div className='description'>
             {planet ? planet.description : null}
           </div>
+          <div>Distance : {distance}</div>
           {prepareButton()}
         </div>
       </div>
