@@ -4,6 +4,9 @@ import Game from './components/Game/Game';
 import './App.scss';
 import PlanetsGrid from './components/Universe/PlanetsGrid';
 import { useEffect, useRef, useState } from 'react';
+import Parallax from './components/Parallax/Parallax.jsx';
+
+/* import PlanetsGrid from './components/Universe/PlanetsGrid'; */
 
 function App() {
   const cool = () => {
@@ -55,6 +58,8 @@ function App() {
         </div>
       </div>
       <PlanetsGrid></PlanetsGrid>
+      <Parallax />
+      
     </div>
   );
 }
