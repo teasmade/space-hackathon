@@ -1,8 +1,10 @@
-import p5 from 'p5';
+import * as p5 from 'p5';
+import 'p5/lib/addons/p5.sound';
 import React from 'react';
 import perso from '../../icons/perso.png';
 import elonHead from '../../icons/elonhead.png';
 import mars from '../../icons/2k_mars.jpg';
+import laser from '../../sound/laser.mp3';
 import './Game.scss';
 
 class Shoot {
@@ -37,6 +39,7 @@ class Game extends React.Component {
     let img;
     let img2;
     let imgBackground;
+
     let persoX = 50;
     let elonX = p.windowWidth - 100;
     let elonY = p.windowHeight / 2;

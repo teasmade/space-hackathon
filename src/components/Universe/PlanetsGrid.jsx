@@ -18,7 +18,8 @@ import spaceShip from '../../assets/images/spaceShip.png';
 import { useEffect, useState, useRef } from 'react';
 import WinOrLoose from './Popup/WinOrLoose';
 
-const PlanetsGrid = ({ startGame }) => {
+const PlanetsGrid = ({ startGame, win }) => {
+  console.log('win', win);
   let listPlanetWithContent = planetList;
   const emptyGrid = new Array(400).fill({ isPlanet: false });
   const [filledGrid, setFilledGrid] = useState([]);
@@ -33,7 +34,6 @@ const PlanetsGrid = ({ startGame }) => {
   const [destinationPositionX, setDestinationPositionX] = useState(0);
   const [destinationPositionY, setDestinationPositionY] = useState(0);
   const [fuel, setFuel] = useState(3000);
-  const [tempFuel, setTempFuel] = useState(0);
 
   const iconsArray = [
     Planet0,
@@ -48,20 +48,13 @@ const PlanetsGrid = ({ startGame }) => {
     Planet9,
   ];
 
-  useEffect(() => {
-    if (tempFuel) {
-      setIsPopupShown(false);
-      setFuel(fuel + tempFuel);
-      setTempFuel(0);
-    }
-  }, [tempFuel]);
   const preparePlanetsData = () => {
     //here we take the planet list, and we add elon musks and oil on random ones
     let elonMuskNumber = 0;
     let oilNumber = 0;
 
     //add elon musk on planet
-    while (elonMuskNumber < 30) {
+    while (elonMuskNumber < 6) {
       const planetIndex = Math.floor(Math.random() * 50);
       if (listPlanetWithContent[planetIndex].type === null) {
         listPlanetWithContent[planetIndex].type = 'ELON_MUSK';
@@ -70,7 +63,7 @@ const PlanetsGrid = ({ startGame }) => {
     }
 
     //add oil on planets
-    while (oilNumber < 10) {
+    while (oilNumber < 15) {
       const planetIndex = Math.floor(Math.random() * 50);
       if (listPlanetWithContent[planetIndex].type === null) {
         listPlanetWithContent[planetIndex].type = 'OIL';
@@ -187,13 +180,15 @@ const PlanetsGrid = ({ startGame }) => {
           planet={planetVisiting}
           clickVisitPlanet={visitPlanet}
           distance={distance}
-          setTempFuel={setTempFuel}
+          setFuel={setFuel}
+          fuel={fuel}
           startGame={startGame}
         />
       ) : null}
       <div className='planetGrid'>{gridItemsToDisplay}</div>
       <div>{fuel}</div>
       {fuel <= 0 ? <WinOrLoose status='Loose' /> : null}
+      {win ? <WinOrLoose status='Win' /> : null}
     </div>
   );
 };

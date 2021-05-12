@@ -8,13 +8,15 @@ const Popup = ({
   planet,
   clickVisitPlanet,
   distance,
-  setTempFuel,
+  setFuel,
+  fuel,
   startGame,
 }) => {
   const [coordinateToDisplay, setCoordinateToDisplay] = useState({
     left: 0,
     top: 0,
   });
+  const [coolButton, setCoolButton] = useState(null);
 
   const placePopup = () => {
     //place popup to avoid it to overflow
@@ -37,9 +39,10 @@ const Popup = ({
   };
 
   const prepareButton = () => {
+    let buttonToDisplay = null;
     console.log('prepare', planet);
     if (planet && !planet.preVisited && !planet.visited) {
-      return (
+      buttonToDisplay = (
         <button
           className='visitOrInteract'
           onClick={() => {
@@ -51,22 +54,28 @@ const Popup = ({
       );
     } else if (planet && planet.preVisited && !planet.visited) {
       if (planet.type === 'OIL') {
-        let oil = Math.floor(Math.random() * 200) + 100;
-        // setTempFuel(oil);
-        return <div>You find a nice stock of oil ! Oil found : {oil}</div>;
+        let oil = Math.floor(Math.random() * 400) + 300;
+        setFuel(oil + fuel > 3000 ? 3000 : oil + fuel);
+        buttonToDisplay = (
+          <div>You find a nice stock of oil ! Oil found : {oil}</div>
+        );
       } else if (planet.type === 'ELON_MUSK') {
         setTimeout(() => startGame(), 2000);
 
-        return (
+        buttonToDisplay = (
           <div>You find a clone of Elon Musk !! You must destroy it !</div>
         );
-      } else return <div>Sadly, this planet is empty.</div>;
+      } else buttonToDisplay = <div>Sadly, this planet is empty.</div>;
     } else if (planet && planet.preVisited && planet.visited) {
-      return <div>You have already visited {planet && planet.name}</div>;
+      buttonToDisplay = (
+        <div>You have already visited {planet && planet.name}</div>
+      );
     }
+    setCoolButton(buttonToDisplay);
   };
 
   useEffect(() => {
+    prepareButton();
     placePopup();
   }, []);
 
@@ -93,7 +102,7 @@ const Popup = ({
             {planet ? planet.description : null}
           </div>
           <div>Distance : {distance}</div>
-          {prepareButton()}
+          {coolButton}
         </div>
       </div>
     </>
