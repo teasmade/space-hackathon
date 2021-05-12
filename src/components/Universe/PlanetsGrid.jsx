@@ -18,7 +18,7 @@ import spaceShip from '../../assets/images/spaceShip.png';
 import { useEffect, useState, useRef } from 'react';
 import WinOrLoose from './Popup/WinOrLoose';
 
-const PlanetsGrid = ({ startGame, win }) => {
+const PlanetsGrid = ({ startGame, win, loose }) => {
   let listPlanetWithContent = planetList;
   const emptyGrid = new Array(400).fill({ isPlanet: false });
   const [filledGrid, setFilledGrid] = useState([]);
@@ -53,7 +53,7 @@ const PlanetsGrid = ({ startGame, win }) => {
     let oilNumber = 0;
 
     //add elon musk on planet
-    while (elonMuskNumber < 6) {
+    while (elonMuskNumber < 8) {
       const planetIndex = Math.floor(Math.random() * 50);
       if (listPlanetWithContent[planetIndex].type === null) {
         listPlanetWithContent[planetIndex].type = 'ELON_MUSK';
@@ -120,34 +120,38 @@ const PlanetsGrid = ({ startGame, win }) => {
     let gridToUpdate = [...filledGrid];
     gridToUpdate[index].preVisited = true;
     createNewGrid(filledGrid);
-    
+
     setIsPopupShown(false);
     handleSpaceShipMove();
     setFuel(fuel - distance);
     setTimeout(() => {
-        setIsPopupShown(true);
-        setTimeout(() => {
-            setIsPopupShown(false);
-            let gridToUpdate = [...filledGrid];
-            gridToUpdate[index].visited = true;
-            createNewGrid(filledGrid);
-            setPlanetVisiting(null);
-        }, 1500);
+      setIsPopupShown(true);
+      setTimeout(() => {
+        setIsPopupShown(false);
+        let gridToUpdate = [...filledGrid];
+        gridToUpdate[index].visited = true;
+        createNewGrid(filledGrid);
+        setPlanetVisiting(null);
+      }, 1500);
     }, 1200);
-};
+  };
 
   const handleSpaceShipMove = (destX) => {
     setShipPositionX(destinationPositionX);
     setShipPositionY(destinationPositionY);
   };
 
-    const handleCalculateDistance = (e) => {
-        const diffX = shipPositionX - e.clientX;
-        const diffY = shipPositionY - e.clientY;
-        setDistance(
-            Math.round(Math.sqrt(parseInt(Math.abs(diffX)) ** 2 + parseInt(Math.abs(diffY)) ** 2))
-        );
-    };
+  const handleCalculateDistance = (e) => {
+    const diffX = shipPositionX - e.clientX;
+    const diffY = shipPositionY - e.clientY;
+    setDistance(
+      Math.round(
+        Math.sqrt(
+          parseInt(Math.abs(diffX)) ** 2 + parseInt(Math.abs(diffY)) ** 2
+        )
+      )
+    );
+  };
 
   useEffect(() => {
     preparePlanetsData();
@@ -155,19 +159,18 @@ const PlanetsGrid = ({ startGame, win }) => {
   }, []);
 
   return (
-   <div className='gridContainer'>
-            <img className='spaceShip' src={spaceShip} alt='' />
-            <SpaceShip
-                className='user-logo'
-                style={{
-                    top: shipPositionY,
-                    left: shipPositionX,
-                    zIndex: 20,
-                    transition: 'all 1000ms ease-in-out',
-                }}
-            />
-    
-    
+    <div className='gridContainer'>
+      <img className='spaceShip' src={spaceShip} alt='' />
+      <SpaceShip
+        className='user-logo'
+        style={{
+          top: shipPositionY,
+          left: shipPositionX,
+          zIndex: 20,
+          transition: 'all 1000ms ease-in-out',
+        }}
+      />
+
       {isPopupShown ? (
         <Popup
           show={isPopupShown}
@@ -183,30 +186,29 @@ const PlanetsGrid = ({ startGame, win }) => {
       ) : null}
       <div className='planetGrid'>{gridItemsToDisplay}</div>
       <div>{fuel}</div>
-   <div
-                className='progress-bar-container'
-                style={{
-                    position: 'fixed',
-                    bottom: 150,
-                    right: 0,
-                    color: 'white',
-                }}
-            >
-                <label htmlFor='fuel'>
-                    Dogecoin : {'\n'} {fuel} / 3000
-                </label>
-                <progress
-                    className='progress-bar'
-                    id='fuel'
-                    max='3000'
-                    value={fuel}
-                    style={{ transform: 'rotate(-90deg) scale(1.5) translateX(10%)' }}
-                ></progress>
-            </div>
-      {fuel <= 0 ? <WinOrLoose status='Loose' /> : null}
+      <div
+        className='progress-bar-container'
+        style={{
+          position: 'fixed',
+          bottom: 150,
+          right: 0,
+          color: 'white',
+        }}
+      >
+        <label htmlFor='fuel'>
+          Dogecoin : {'\n'} {fuel} / 3000
+        </label>
+        <progress
+          className='progress-bar'
+          id='fuel'
+          max='3000'
+          value={fuel}
+          style={{ transform: 'rotate(-90deg) scale(1.5) translateX(10%)' }}
+        ></progress>
+      </div>
+      {fuel <= 0 || loose ? <WinOrLoose status='Loose' /> : null}
       {win ? <WinOrLoose status='Win' /> : null}
     </div>
   );
-
 };
 export default PlanetsGrid;

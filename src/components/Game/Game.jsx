@@ -5,6 +5,10 @@ import perso from '../../icons/perso.png';
 import elonHead from '../../icons/elonhead.png';
 import mars from '../../icons/2k_mars.jpg';
 import laser from '../../sound/laser.mp3';
+import elonCry from '../../sound/elonCry.mp3';
+import persoCry from '../../sound/persoCry.mp3';
+import useSound from 'use-sound';
+
 import './Game.scss';
 
 class Shoot {
@@ -178,9 +182,9 @@ class Game extends React.Component {
       }
 
       if (elonDir) {
-        elonY += 5;
+        elonY += 7;
       } else {
-        elonY -= 5;
+        elonY -= 7;
       }
 
       if (elonCanShoot && !elonLoose) {
