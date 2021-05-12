@@ -13,7 +13,7 @@ import { ReactComponent as Planet6 } from '../../icons/planet6.svg';
 import { ReactComponent as Planet7 } from '../../icons/planet7.svg';
 import { ReactComponent as Planet8 } from '../../icons/planet8.svg';
 import { ReactComponent as Planet9 } from '../../icons/planet9.svg';
-import { ReactComponent as SpaceShip } from '../../icons/noun_Space_3713444.svg';
+import { ReactComponent as SpaceShip } from '../../icons/noun_Rocket_3713741.svg';
 import spaceShip from '../../assets/images/spaceShip.png';
 import { useEffect, useState, useRef } from 'react';
 import WinOrLoose from './Popup/WinOrLoose';
@@ -140,6 +140,8 @@ const PlanetsGrid = () => {
     );
   };
 
+  const handleRotate = () => {};
+
   useEffect(() => {
     preparePlanetsData();
     createPlanetGrid();
@@ -171,7 +173,7 @@ const PlanetsGrid = () => {
       />
       <div className='planetGrid'>{gridItemsToDisplay}</div>
       <div
-        classname='progress-bar-container'
+        className='progress-bar-container'
         style={{
           position: 'fixed',
           bottom: 150,
@@ -179,11 +181,11 @@ const PlanetsGrid = () => {
           color: 'white',
         }}
       >
-        <label for='fuel'>
+        <label htmlFor='fuel'>
           Fuel : {'\n'} {fuel} / 3000
         </label>
         <progress
-          classname='progress-bar'
+          className='progress-bar'
           id='fuel'
           max='3000'
           value={fuel}

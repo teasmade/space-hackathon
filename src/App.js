@@ -3,7 +3,7 @@ import 'react-star-wars-crawl/lib/index.css';
 import Game from './components/Game/Game';
 import './App.scss';
 import PlanetsGrid from './components/Universe/PlanetsGrid';
-import { useEffect, useRef, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 
 import ParallaxMousemove from 'react-parallax-mousemove';
 
@@ -23,7 +23,7 @@ function App() {
       overflow: 'hidden',
     },
     galaxylayer: {
-      background: 'center center/cover',
+      background: 'center cover',
       width: '100%',
       position: 'relative',
       overflow: 'hidden',
@@ -58,7 +58,6 @@ function App() {
     }
   }, [showText]);
   const handleKeyDown = (e) => {
-    console.log(e);
     if (e.code === 'Space') {
       e.target.className = 'crawlerContainer opacify';
       setTimeout(() => {
@@ -66,10 +65,12 @@ function App() {
       }, 3000);
     }
   };
-  const divRef = useRef();
+
+  const divRef = createRef();
   useEffect(() => {
     divRef.current.focus();
   }, []);
+
   return (
     <div className='App'>
       <div
